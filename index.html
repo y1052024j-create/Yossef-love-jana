@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>خلفية حمراء وقلب في النص</title>
+  <style>
+    body {
+      margin-left: 40px; /* المسافة من الشمال فقط */
+      height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; /* يبدأ من الأعلى */
+      background-color: #8B0000; /* أحمر غامق */
+      overflow: hidden; /* عشان القلوب متطلعش بره الصفحة */
+    }
+
+    .heart-container {
+      width: 300px;   
+      height: 300px;  
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 750px; /* الرقم ده يتحكم في نزول القلب تحت */
+    }
+
+    .heart {
+      font-size: 850px; 
+      color: red;
+    }
+
+    /* بداية كود القلوب الصغيرة */
+    .small-heart {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: red;
+      transform: rotate(-45deg);
+      animation: float 4s linear infinite;
+    }
+    .small-heart::before, .small-heart::after {
+      content: "";
+      position: absolute;
+      width: 10px; height: 10px;
+      background: red;
+      border-radius: 50%;
+    }
+    .small-heart::before { top:-5px; left:0; }
+    .small-heart::after { top:0; left:5px; }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(-45deg); opacity:0; }
+      50% { opacity:1; }
+      100% { transform: translateY(-5px) rotate(-45deg); opacity:0; }
+    }
+    /* نهاية كود القلوب الصغيرة */
+  </style>
+</head>
+<body>
+  <div class="heart-container">
+    <div class="heart">❤️</div>
+  </div>
+
+  <script>
+    // إنشاء 20 قلب صغير يتحرك عشوائياً
+    for(let i=0;i<15;i++){
+      let h=document.createElement("div");
+      h.className="small-heart";
+      h.style.left=Math.random()*window.innerWidth+"px";
+      h.style.animationDelay=Math.random()*5+"s";
+      document.body.appendChild(h);
+    }
+  </script>
+</body>
+</html>
