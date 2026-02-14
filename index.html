@@ -14,6 +14,18 @@
       overflow: hidden; /* عشان القلوب متطلعش بره الصفحة */
     }
 
+    /* نص فوق القلب */
+    .top-text {
+      position: absolute;
+      top: 50px; /* المسافة من أعلى الصفحة */
+      left: 50%;
+      transform: translateX(-50%); /* يخلي النص في منتصف الشاشة أفقياً */
+      font-size: 40px; /* حجم النص */
+      color: red;    /* لون النص */
+      font-weight: bold;
+      text-align: center;
+    }
+
     .heart-container {
       width: 300px;   
       height: 300px;  
@@ -97,6 +109,9 @@
   </style>
 </head>
 <body>
+  <!-- النص فوق القلب -->
+  <div class="top-text">Yossef♥️Jana</div>
+
   <div class="heart-container">
     <div class="heart">❤️</div>
   </div>
