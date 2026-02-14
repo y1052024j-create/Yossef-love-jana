@@ -116,11 +116,16 @@
       document.body.appendChild(h);
     }
 
-    // مثال: عند الضغط على دخول، تظهر كلمة المرور في console
+    // عند الضغط على دخول، تعرض كلمة المرور في console
     document.querySelector('.login-button').addEventListener('click', function() {
       const pw = document.querySelector('.password-input').value;
       console.log("كلمة المرور المدخلة: ", pw);
     });
+
+    // الحل: يجعل الصفحة تبدأ دائمًا من الأعلى عند أي تحميل أو Refresh
+    window.onload = function() {
+      window.scrollTo(0, 0);
+    };
   </script>
 </body>
 </html>
