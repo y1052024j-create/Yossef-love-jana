@@ -116,13 +116,20 @@
       document.body.appendChild(h);
     }
 
-    // عند الضغط على دخول، تعرض كلمة المرور في console
+    // كلمة مرور محددة
+    const correctPassword = "1052024"; 
+    const homepageURL = "homepage.html"; // حطي اسم الصفحة اللي عايزاها هنا
+
     document.querySelector('.login-button').addEventListener('click', function() {
       const pw = document.querySelector('.password-input').value;
-      console.log("كلمة المرور المدخلة: ", pw);
+      if(pw === correctPassword){
+        window.location.href = homepageURL; // ينقلك للصفحة
+      } else {
+        alert("كلمة المرور غلط 😢 حاول تاني");
+      }
     });
 
-    // الحل: يجعل الصفحة تبدأ دائمًا من الأعلى عند أي تحميل أو Refresh
+    // يجعل الصفحة تبدأ دائمًا من الأعلى عند أي تحميل أو Refresh
     window.onload = function() {
       window.scrollTo(0, 0);
     };
