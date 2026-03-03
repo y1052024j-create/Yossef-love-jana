@@ -1,153 +1,209 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>خلفية حمراء وقلب في النص</title>
-  <style>
-    body {
-      margin-left: 70px; /* المسافة من الشمال فقط */
-      height: 60vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start; /* يبدأ من الأعلى */
-      background-color: #8B0000; /* أحمر غامق */
-      overflow: hidden; /* عشان القلوب متطلعش بره الصفحة */
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>صفحة الدخول - JANA & YOSSEF</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body {
+  font-family: 'Cairo', sans-serif;
+  background: #B20000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+  margin: 0;
+}
 
-    /* نص فوق القلب */
-    .top-text {
-      position: absolute;
-      top: 70px; /* المسافة من أعلى الصفحة */
-      left: 53%;
-      transform: translateX(-50%); /* يخلي النص في منتصف الشاشة أفقياً */
-      font-size: 120px; /* حجم النص */
-      color: white;    /* لون النص */
-      font-weight: bold;
-      text-align: center;
-    }
+/* ===== القلوب المتحركة في الخلفية ===== */
+.floating-hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1;
+}
 
-    .heart-container {
-      width: 300px;   
-      height: 300px;  
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 750px; /* الرقم ده يتحكم في نزول القلب تحت */
-    }
+.floating-heart {
+  position: absolute;
+  bottom: -50px;
+  color: rgba(255,0,0,0.7);
+  animation: floatUp ease-in-out forwards;
+}
 
-    .heart {
-      font-size: 850px; 
-      color: red;
-    }
+@keyframes floatUp {
+  0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.7; }
+  100% { transform: translateY(-70vh) scale(1); opacity: 0; }
+}
+  .top-image {
+  width: 340px;      /* عرض الصورة */
+  height: 290px;     /* طول الصورة */
+  object-fit: cover; /* يحافظ على نسب الصورة */
+  margin-bottom: 50px; /* مسافة بين الصورة والمربع */
+  border-radius: 10px; /* حواف دائرية لو عايز */
+  }
 
-    /* بداية كود القلوب الصغيرة */
-    .small-heart {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: red;
-      transform: rotate(-45deg);
-      animation: float 4s linear infinite;
-    }
-    .small-heart::before, .small-heart::after {
-      content: "";
-      position: absolute;
-      width: 10px; height: 10px;
-      background: red;
-      border-radius: 50%;
-    }
-    .small-heart::before { top:-5px; left:0; }
-    .small-heart::after { top:0; left:5px; }
+/* المربع الرئيسي */
+.login-container {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  width: 90%;
+  max-width: 320px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+  padding: 30px 20px;
 
-    @keyframes float {
-      0% { transform: translateY(100vh) rotate(-45deg); opacity:0; }
-      50% { opacity:1; }
-      100% { transform: translateY(-5px) rotate(-45deg); opacity:0; }
-    }
-    /* نهاية كود القلوب الصغيرة */
+  /* Flex لضبط العناصر وسط المربع */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-    /* بداية كود الباسورد والزر */
-    .login-container {
-      position: absolute;
-      top: 80%; /* تقدري تتحكمي بالارتفاع عن طريق تغيير هذه القيمة */
-      left: 53%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px; /* المسافة بين المربع والزر */
-    }
+h1 {
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 22px;
+}
 
-    .password-input {
-      width: 550px;       /* عرض المربع */
-      height: 120px;       /* ارتفاع المربع */
-      font-size: 25px;
-      padding: 5px 10px;
-      border: 2px solid #000;
-      border-radius: 8px;
-      background-color: rgba(255,255,255,0); /* خلفية شفافة */
-      color: black;
-      outline: none;
-    }
+.password-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+}
 
-    .login-button {
-      width: 500px;       /* عرض الزر */
-      height: 110px;       /* ارتفاع الزر */
-      font-size: 25px;
-      border: none;
-      border-radius: 8px;
-      background-color: #ff0000; /* أحمر */
-      color: white;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+.password-input::placeholder {
+  color: #b0b0b0;
+  font-weight: 500;
+}
 
-    .login-button:hover {
-      background-color: #cc0000;
-    }
-    /* نهاية كود الباسورد والزر */
-  </style>
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+  border: none;
+  background: hsl(0,100%,45%);
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+  background: hsl(0,100%,50%);
+  box-shadow: 0 0 20px rgba(255,0,0,0.7);
+}
+
+/* زرار جاهزه تحت المربع */
+.ready-btn {
+  width: 90%;
+  max-width: 320px;
+  padding: 10px;
+  margin-top: 20px; /* مسافة من المربع */
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+  border: none;
+  background: hsl(0,100%,45%);
+  transition: all 0.3s ease;
+  opacity: 0;
+  display: none;
+}
+
+.ready-btn.show {
+  display: block;
+  opacity: 1;
+}
+
+.ready-btn:hover {
+  background: hsl(0,100%,50%);
+  box-shadow: 0 0 20px rgba(255,0,0,0.7);
+}
+
+.error-msg {
+  color: rgba(255,255,255,0.8);
+  margin-top: 10px;
+  font-size: 14px;
+  display: none;
+}
+</style>
 </head>
 <body>
-  <!-- النص فوق القلب -->
-  <div class="top-text">Yossef♥️Jana</div>
 
-  <div class="heart-container">
-    <div class="heart">♥️</div>
-  </div>
+<!-- القلوب المتحركة في الخلفية -->
+<div class="floating-hearts" id="floatingHearts"></div>
+  
+<!-- إضافة الصورة فوق المربع -->
+<img src="file_000000008bb0722fb51ee33022d57a6f.png
+" alt="صورة صغيرة" class="top-image">
+<div class="login-container">
+  
+  <h1>ادخل كلمة السر</h1>
+  <input type="password" id="passwordInput" class="password-input" placeholder="اول يوم لينا">
+  <button id="loginBtn" class="login-btn">دخول</button>
+  <p id="errorMsg" class="error-msg">كلمة المرور غلط يهبله ❌😒</p>
+</div>
 
-  <div class="login-container">
-    <input type="password" placeholder="اكتبي أول يوم لينا" class="password-input">
-    <button class="login-button">دخول</button>
-  </div>
+<!-- زرار جاهزه تحت المربع مباشرة -->
+<button id="readyBtn" class="ready-btn">جاهزه يروحي 🙈؟</button>
 
-  <script>
-    // إنشاء 15 قلب صغير يتحرك عشوائياً
-    for(let i=0;i<15;i++){
-      let h=document.createElement("div");
-      h.className="small-heart";
-      h.style.left=Math.random()*window.innerWidth+"px";
-      h.style.animationDelay=Math.random()*5+"s";
-      document.body.appendChild(h);
-    }
+<script>
+const passwordInput = document.getElementById("passwordInput");
+const loginBtn = document.getElementById("loginBtn");
+const readyBtn = document.getElementById("readyBtn");
+const errorMsg = document.getElementById("errorMsg");
 
-    // كلمة مرور محددة
-    const correctPassword = "1052024"; 
-    const homepageURL = "secondPage.html"; // حطي اسم الصفحة اللي عايزاها هنا
+const PASSWORD = "1052024";
 
-    document.querySelector('.login-button').addEventListener('click', function() {
-      const pw = document.querySelector('.password-input').value;
-      if(pw === correctPassword){
-        window.location.href = homepageURL; // ينقلك للصفحة
-      } else {
-        alert("كلمة المرور غلط 😢 حاول تاني");
-      }
-    });
+loginBtn.addEventListener("click", () => {
+  if(passwordInput.value === PASSWORD){
+    errorMsg.style.display = "none";
+    readyBtn.classList.add("show"); // يظهر الزرار تدريجي
+  } else {
+    errorMsg.style.display = "block";
+  }
+});
 
-    // يجعل الصفحة تبدأ دائمًا من الأعلى عند أي تحميل أو Refresh
-    window.onload = function() {
-      window.scrollTo(0, 0);
-    };
-  </script>
+readyBtn.addEventListener("click", () => {
+  window.location.href = "secondPage.html"; // الرابط للصفحة التانية
+});
+
+// ===== كود القلوب المتحركة =====
+function createFloatingHeart() {
+  const container = document.getElementById("floatingHearts");
+  const heart = document.createElement("div");
+  heart.classList.add("floating-heart");
+  heart.textContent = "♥";
+  heart.style.left = Math.random() * 100 + "%";
+  heart.style.fontSize = (40 + Math.random() * 25) + "px";
+  heart.style.animationDuration = (6 + Math.random() * 6) + "s";
+  container.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 12000);
+}
+
+// ابدأ ظهور القلوب تدريجي
+for (let i = 0; i < 8; i++) {
+  setTimeout(createFloatingHeart, i * 500);
+}
+setInterval(createFloatingHeart, 1500);
+</script>
+
 </body>
 </html>
