@@ -1,141 +1,339 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>صفحة بمستطيل وزرار ألوان</title>
-<style>
-/* ==========================
-   إعدادات الصفحة
-   ========================== */
-body {
-    margin: 0;
-    position: relative;
-    font-family: Arial, sans-serif;
-    overflow-x: hidden;   /* منع ظهور Scroll أفقي */
-    background-color: #8B0000; /* الخلفية الافتراضية أحمر غامق */
-    min-height: 500vh;    /* طول الصفحة ثابت */
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JANA & YOSSEF   FOREVER</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+
+    body{
+      font-family:'Cairo',sans-serif;
+      background:#B20000;
+      min-height:90vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      overflow-x:hidden;
+      position:relative;
+    }
+
+    .floating-hearts{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index:0;
+    }
+
+    .floating-heart{
+      position:absolute;
+      bottom:-50px;
+      color:rgba(255,0,0,0.7);
+      animation:floatUp ease-in-out forwards;
+    }
+
+    @keyframes floatUp{
+      0%{transform:translateY(100vh) scale(0.5);opacity:0;}
+      10%{opacity:0.7;}
+      90%{opacity:0.7;}
+      100%{transform:translateY(-70vh) scale(1);opacity:0;}
+    }
+
+    @keyframes heartbeat{
+      0%,100%{transform:scale(1);}
+      50%{transform:scale(1.03);}
+    }
+
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(10px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+
+    .main-container{
+      position:relative;
+      z-index:10;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      padding:20px;
+      width:100%;
+    }
+
+    .names{text-align:center;margin:50px 0 24px;}
+
+    /* ===== تعديل الاسم مع الصورة ===== */
+    .name-with-image {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px; /* المسافة بين الاسم والصورة */
+    }
+
+    .names h1{
+      font-family:'Dancing Script',cursive;
+      color:#fff;
+      font-size:2rem;
+      font-weight:700;
+      letter-spacing:2px;
+    }
+
+    .names p{
+      font-family:'Dancing Script',cursive;
+      color:rgba(255,255,255,0.8);
+      font-size:1.4rem;
+      margin-top:4px;
+    }
+
+    /* ===== صور جنب الأسماء ===== */
+.side-image {
+  width: 30px;       /* حجم الصورة */
+  height: 55px;
+  object-fit: cover;
+  border-radius: 20%; /* حواف دائرية */
+  vertical-align: middle; /* يثبتها على نفس خط الاسم */
 }
 
-/* ==========================
-   المستطيل
-   ========================== */
-.text-box {
-    position: relative;
-    width: 80%;             /* عرض المستطيل (قابل للتعديل) */
-    min-height: 470vh;       /* ارتفاع المستطيل (قابل للتعديل) */
-    margin: 13vh auto;      /* المسافة من أعلى وأسفل الصفحة */
-    background: rgba(255,255,255,0.2); /* خلفية شبه شفافة */
-    border-radius: 40px;    /* حواف دائرية */
-    box-shadow: 0 0 40px rgba(0,0,0,0.3); /* الظل خلف المستطيل */
-    padding: 2vh 2vw;       /* المسافة الداخلية داخل المستطيل */
-    font-size: 8vw;         /* حجم النص داخل المستطيل */
-    color: white;
-    text-align: center;
+.left-img {
+  margin-right: 5px;  /* مسافة عن JANA */
 }
 
-/* ==========================
-   نص فوق المستطيل
-   ========================== */
-.text-top {
-    position: relative;
-    width: 100%;
-    text-align: center;
-    font-size: 10vw;      /* حجم النص فوق المستطيل */
-    top: 230px;  /* المسافة بين النص والمستطيل */
-    color: white;
+.right-img {
+  margin-left: 5px;   /* مسافة عن YOSSEF */
 }
 
-/* ==========================
-   نص تحت المستطيل
-   ========================== */
-.text-bottom {
-    position: relative;
-    width: 100%;
-    text-align: center;
-    font-size: 7vw;      /* حجم النص تحت المستطيل */
-    top: -230px;     /* المسافة بين المستطيل والنص */
-    color: white;
-}
+    .heart-wrapper{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      animation:heartbeat 2s ease-in-out infinite;
+      filter:drop-shadow(0 20px 40px rgba(80,0,0,0.6));
+      margin-bottom:20px;
+    }
 
-/* ==========================
-   زرار تغيير اللون
-   ========================== */
-.color-switch {
-    position: absolute;
-    top: 7vh;      /* المسافة من أعلى الصفحة */
-    right: 2vw;    /* المسافة من اليمين */
-    width: 100px;   /* عرض الشريط */
-    height: 60px;  /* ارتفاع الشريط */
-    background: linear-gradient(to right, #ff69b4, #ff0000); /* لونين دائرتين */
-    border-radius: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* يبدأ الدائرة من اليسار */
-}
+    .heart-svg{
+      width:280px;
+      height:280px;
+    }
 
-/* الدائرة المتحركة داخل الزرار */
-.switch-circle {
-    width: 28px;
-    height: 28px;
-    background-color: white;
-    border-radius: 50%;
-    margin: 1px;
-    transition: 0.3s; /* حركة سلسة */
-}
+    .timer-overlay{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding-top:16px;
+    }
 
-/* ==========================
-   الوظائف بالعربي داخل الكود:
-   - .text-top: نص فوق المستطيل، التحكم في الحجم والمسافة من المستطيل
-   - .text-bottom: نص تحت المستطيل، التحكم في الحجم والمسافة من المستطيل
-   ========================== */
-</style>
+    .timer{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    .timer-unit{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
+
+    .timer-value{
+      color:#fff;
+      font-weight:700;
+      font-size:1.2rem;
+    }
+
+    .timer-label{
+      color:rgba(255,255,255,0.7);
+      font-size:10px;
+      margin-top:4px;
+    }
+
+    /* زرار اظهار الرسالة */
+    .show-btn{
+      margin-top:25px;
+      background:hsl(0,100%,45%);
+      color:#fff;
+      border:none;
+      border-radius:10px;
+      padding:12px 20px;
+      font-weight:700;
+      cursor:pointer;
+      transition:0.3s;
+      font-family:'Cairo',sans-serif;
+    }
+
+    .show-btn:hover{
+      background:hsl(0,100%,50%);
+      box-shadow:0 0 20px rgba(255,0,0,0.5);
+    }
+
+    #secretContent{
+      display:none;
+      width:100%;
+      margin-top:40px;
+      flex-direction:column;
+      align-items:center;
+      animation:fadeIn 0.5s ease-out;
+    }
+
+    #secretContent{
+      display: none;      /* مهم جداً */
+      width:100%;
+      margin-top:40px;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+    }
+
+    .text-box{
+      width:90%;
+      max-width:500px;   /* يخليه مايكبرش زيادة */
+      min-height:auto;   /* يشيل الطول الضخم */
+      background:rgba(255,255,255,0.12);
+      backdrop-filter:blur(12px);
+      border-radius:30px;
+      box-shadow:0 20px 60px rgba(0,0,0,0.7);
+      padding:25px;
+      color:white;
+      font-size:18px;
+      line-height:1.8;
+      text-align:center;
+    }
+
+    .text-end{
+      margin-top:30px;
+      font-weight:bold;
+      color:white;
+      display:none;
+    }
+
+  </style>
 </head>
 <body>
+  
+<div class="floating-hearts" id="floatingHearts"></div>
 
-<!-- نص فوق المستطيل -->
-<div class="text-top">Yossef♾️Jana</div>
+<div class="main-container">
 
-<!-- المستطيل -->
-<div class="text-box">
-    جنجونة قلبي. ازيك حابب اصمم الموقع دا مخصوص ليكي عشان انا معنديش اغلي منك ف حياتي . حابب اقولك اني بجدد بحبك اوي و بتمني انك تسامحيني ع الكلام الي قولتو و اي حجه قولتها عشان اخلع بيها منك بس انا خلعت و هرجع بالمفجأه دي 😂❤️. و دا بخصوص الفلانتين و أن شاء الله هعمل موقع تاني نجمع فيه كل ذكرياتنا مع بعض القديمه و الجديده . انا بجد حابب اتكلم و اقول كلام طالع من قلبي . انا بقالي ٦ سنين بحبك و عمري و حسيت أن حبي ليكي قل . بالعكس أنا كل يوم حبك جوا قلبي بيزيد . انا اول م شوفتك و انتي مخرجتيش من بالي . لحد دلوقتي مفيش يوم عدا غير و انتي ف بالي ال٢٤ ساعه حتى ف احلامي . شوفتك كانت بتفرحني جدا . مكنش فيه حاجه ف يومي بستناها غير اني اشوفك عشان احس اني مبسوط . فضلت ٤ سنين احبك من بعيد لبعيد و اطلبك من ربنا انك تدخلي حياتي و تبقي معايا لحد م فعلا بقيتي ف حياتي و شكرت ربنا انو حققلي حلم حلمتو . و ان هوا اكون معاكي . انا مش عايز حاجه من الدنيا غير اننا نكون مع بعض عشان مفيش اي حاجه بتبسطني غيرك . انا عايز اقولك اني بجدد بحبك اوي من كل قلبي . و مش بس بحبك . انا وصلت أن انا بقيت بعشقك . و ربنا شاهد علي كلامي أن انا عمري مفكرت اسيبك ولا اتخلي عنك . انا عايزك تعرفي اني بجدد عمري م هسيبك . عشان انتي مش مجرد انسانه ف حياتي . انتي بقيتي كل حياتي . و يمكن حصل بينا خناقات كتير و خلافات كتير . بس عمري م حسيت أن حبى ليكي قل . و يمكن اسلوبي وحش و طريقتي ساعات وحشه و مبعرفش اعبر عن حبي ليكي بس و الله بحبك اوي و عمري مقدر ابعد عنك . متأسف علي كل حاجه عملتها معاكي و مزعلاكي . و متأسف علي كل يوم بسيبك فيه لدماغك . بس و الله انتي هتفضلي اغلي حد ف حياتي مهما حصل . انا بجد بحبك اوي فوق مما تتخيلي . و معلشي ف التلت ايام الي عدو دول و الكلام الي قولتهولك بس  كنت مخنوق و مدايق اوي بس مش عارف من اي بس حسيت أن انا اتقفلت فجأه و اتخنقت و كنت عايز ابقي لوحدي يومين كدا انا ٱسف . و جت ف دماغي فكرة الموقع دا و أن الفلانتين يوم ١٤ ف قولت اعملهالك مفجأه ف الفلانتين بس معلشي اتمني تسامحيني علي الايام الي قفلتها دي انا ٱسف . و بجد عايز اقولك . إن انتي احلي انسانه ف حياتي . و مش بس احلي انسانه انتي كل حياتي يعتبر . ربنا يخليكي ليا و ميحرمنيش منك ابدا و تفضلي معايا لآخر العمر . و ان شاء الله هحاول اعمل كل جهدي أن انا اخلي علاقتنا بالحلال . و ان شاء الله ربنا يكرمني و يرزقني و اجي اتقدملك و اعملك كل الي نفسك فيه و الي عايزه . و بجدد انا بحبك اوي و عمري مهبعد عنك ابدا . عشان انتي ملكتي حياتي خلاص . ولا هيجي بعدك ولا قبلك . ي انتي يا مفيش حد تاني بعديكي يعتب باب حياتي تاني . عشان انا مش هعرف احب تاني حد غيرك . انا بجدد حبيتك . و مش كلمه طالعه مني كدا و خلاص . دي بجدد كلمه من جوا قلبي . انا بحبك اوي ي جنجونتي متزعليش مني عشان عارف انك زعلتي عشان قفلت بس معلشي عارف اني غلطان . و بجدد بحبك اوي و ربنا يخليكي ليا و ميحرمنيش منك و يجعلك من نصيبي يارب يقطتي . بحبك ي اغلي حد ف حياتي ♥️. هابي فالنتين ديي يكتكوته 😍😍. I love you 😘
+<div class="names">
+  <h1>
+    <img src="IMG-20260227-WA0012.jpg
+" alt="صورة جنى" class="side-image left-img">
+    JANA
+    &
+    YOSSEF
+    <img src="IMG-20260129-WA0045.jpg
+" alt="صورة يوسف" class="side-image right-img">
+  </h1>
+  <p>FOREVER</p>
 </div>
 
-<!-- نص تحت المستطيل -->
-<div class="text-bottom">🌹Happy Valentine day🌹</div>
 
-<!-- زرار تغيير اللون -->
-<div class="color-switch" id="colorSwitch">
-    <div class="switch-circle" id="switchCircle"></div>
+<div class="heart-wrapper">
+<svg class="heart-svg" viewBox="0 0 512 512">
+<path d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z" fill="hsl(0,100%,45%)"/>
+</svg>
+<div class="timer-overlay">
+<div class="timer" id="timer"></div>
+</div>
 </div>
 
+<button class="show-btn" id="showBtn">اظهار 💌 الرساله</button>
+
+<div id="secretContent">
+<div class="text-box" id="textBox"></div>
+<div class="text-end" id="textEnd">❤️‍🔥𝑩𝑨𝑯𝑬𝑩𝑬𝑲 𝑨𝑾𝑬𝑬❤️‍🔥</div>
+</div>
+
+</div>
+  <audio id="myAudio" loop>
+    <source src="AudioCutter_Albumaty.Com_adhm_nablsi_han_alan.mp3" type="audio/mpeg">
+    متصفحك لا يدعم تشغيل الصوت
+  </audio>
+  
 <script>
-// ==========================
-// ===== إعداد المتغيرات =====
-// ==========================
-const body = document.body;
-const switchCircle = document.getElementById("switchCircle");
-const colorSwitch = document.getElementById("colorSwitch");
 
-// ألوان الخلفية
-const colorLeft = "#FF69B4"; // اللون الأول للبينك
-const colorRight = "#8B0000"; // اللون الثاني للأحمر
-let isLeft = true; // متغير لتحديد أي لون مفعل
+const START_DATE=new Date(2024,4,10,18,0,0);
 
-// ==========================
-// ===== عند الضغط على زرار التغيير =====
-// ==========================
-colorSwitch.addEventListener("click", () => {
-    if(isLeft){
-        body.style.backgroundColor = colorRight; // تغيير الخلفية للأحمر
-        switchCircle.style.marginLeft = "31px";  // تحريك الدائرة للجهة اليمنى
-    } else {
-        body.style.backgroundColor = colorLeft;  // تغيير الخلفية للبينك
-        switchCircle.style.marginLeft = "1px";   // إعادة الدائرة لليسار
-    }
-    isLeft = !isLeft; // تبديل الحالة
+function updateTimer(){
+const now=new Date();
+const diff=now-START_DATE;
+const totalSeconds=Math.floor(diff/1000);
+
+const years=Math.floor(totalSeconds/(365.25*24*3600));
+const remainAfterYears=totalSeconds-years*Math.floor(365.25*24*3600);
+const days=Math.floor(remainAfterYears/(24*3600));
+const hours=Math.floor((remainAfterYears%(24*3600))/3600);
+const minutes=Math.floor((remainAfterYears%3600)/60);
+const seconds=remainAfterYears%60;
+
+const units=[
+{label:"سنة",value:years},
+{label:"يوم",value:days},
+{label:"ساعة",value:hours},
+{label:"دقيقة",value:minutes},
+{label:"ثانية",value:seconds},
+];
+
+document.getElementById("timer").innerHTML=
+units.map(u=>`
+<div class="timer-unit">
+<span class="timer-value">${String(u.value).padStart(2,"0")}</span>
+<span class="timer-label">${u.label}</span>
+</div>`).join("");
+}
+
+updateTimer();
+setInterval(updateTimer,1000);
+
+function createFloatingHeart(){
+const container=document.getElementById("floatingHearts");
+const heart=document.createElement("div");
+heart.classList.add("floating-heart");
+heart.textContent="♥";
+heart.style.left=Math.random()*100+"%";
+heart.style.fontSize=(30+Math.random()*25)+"px";
+heart.style.animationDuration=(6+Math.random()*6)+"s";
+container.appendChild(heart);
+setTimeout(()=>heart.remove(),12000);
+}
+
+for(let i=0;i<8;i++){
+setTimeout(createFloatingHeart,i*500);
+}
+setInterval(createFloatingHeart,1500);
+
+const showBtn=document.getElementById("showBtn");
+const secretContent=document.getElementById("secretContent");
+const textBox=document.getElementById("textBox");
+const textEnd=document.getElementById("textEnd");
+
+showBtn.addEventListener("click",function(){
+secretContent.style.display="flex";
+showBtn.style.display="none";
+
+const fullText=`(ازيك يكتكوتة قلبي عامله اي . يارب تكوني بخير . مفجأه تانيه احلي عشان الاولي كانت وحشه . عايز اقولك انا آسف بجدد علي كل حاجه عملتها معاكي زعلتك و دايقتك مني و آسف علي اي كلمه مني مكنتش حلوه و خليكي عارفه انها غصب عني و مببقاش قصدي . بس و الله العظيم انا بحبك اوي . و دلوقتي بقا نقدر نقول اننا بدأنا صفحه جديده مع بعض . و تعارف ع بعض من اول و جديد . و الله انتي وحشاني اوي . و حاسس بفقدان حاجه حلوه ف حياتي . اول حاجه كل سنه و انتي طيبه عشان العيد . و يارب يكون يكون عيد سعيد عليكي ينور عيني . بجدد انا بحبك اوي . و بحب ضحكتك . و بحب صوتك و بحب مشيتك و بحب طريقة كلامك   بحب كسوفك و بحب حنيتك بحب كل حاجه فيكي . و بجدد انتي هتفضلي اغلي واحده ف حياتي . و هتفضلي اكتر واحده بحبها ف حياتي . من اول م شوفنك و انا اتشديت ليكي و حسيت اني حبيتك لوحدي . لحد م بقيتي حب حياتي كلها . تقدري تقولي اني قلبي اكتمل بيكي انتي  😍. بجدد مش عايز ابعد عنك تاني . و مش عايز يحصل نفس الي حصل دا تاني . عشان انا لحد دلوقتي اهو بحاول عشانك . عشان متقوليش انت مبتحاولش عشانيي هااا 😡. ما علينا . بجدد انتي هتفضلي حبي الاول و الاخير بالنسبالي . و هتفضلي احلي واحده ف حياتي . و هتفضلي اغلي حد عندي . حتى بعد الشر و انتي مش معايا هتفضلي ف القلب و العقل و غمري مهنساكي . هتفضلي جوا قلبي و جوا عقلي . و عمري مهشوف حد غيرك . ولا هحب من بعدك حد تاني . هجيب موتسيكل و عربيه و شقه لوحدي بس 😂😂. بس بجدد انا بحبك اوي . و بموت فيكي . و بعشقك . و بجدد ربنا يخليكي ليا و ميحرمناش من بعض ابدا و يجعلك من نصيبي . و تبقي معايا ع طول . جوايا كلام كتير اوي عايز اقولهولك بس كفايه عليكي كدا . عشان مطولش عليكي . وحشتيني يحياتي ❤️‍🔥😍. بحبك اوي ♥)`;
+
+let i=0;
+function typeWriter(){
+if(i<fullText.length){
+textBox.textContent+=fullText.charAt(i);
+i++;
+setTimeout(typeWriter,40);
+}else{
+textEnd.style.display="block";
+}
+}
+typeWriter();
 });
-</script>
+  const audio = document.getElementById('myAudio');
+    document.addEventListener("click", function () {
+  audio.play().catch(function(){});
+}, { once: true });
 
+</script>
 </body>
 </html>
